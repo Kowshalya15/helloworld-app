@@ -1,7 +1,9 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
+import axios from 'axios';
 
 export default function App() {
+  axios.get('https://the-office-api.herokuapp.com/season/4/format/quotes');
   return (
     <View style={styles.container}>
       <Text>Hello World</Text>
