@@ -8,7 +8,7 @@ import { Button } from 'react-native';
 export default function App() {
   const [name, setName] = useState("");
   const postandFetch = (e) => {
-    axios.post("http://10.0.2.2:8000",{
+    axios.post("http://10.0.2.2:8000/api/",{
       name:name
     }).then((d) => {
       setName(d.data.name)
