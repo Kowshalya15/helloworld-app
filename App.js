@@ -1,12 +1,34 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
 import axios from 'axios';
+import { StatusBar } from 'expo-status-bar';
+import { useEffect, useState } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+import { SafeAreaView, TextInput } from 'react-native';
+import { Button } from 'react-native';
 
 export default function App() {
-  axios.get('https://the-office-api.herokuapp.com/season/4/format/quotes');
+  const [name, setName] = useState("");
+  const postandFetch = (e) => {
+    axios.post("http://10.0.2.2:8000",{
+      name:name
+    }).then((d) => {
+      setName(d.data.name)
+    })
+  }
   return (
     <View style={styles.container}>
-      <Text>Hello World</Text>
+      <Text>Hey {name}, from the database</Text>
+      <SafeAreaView>
+        <TextInput
+          style={styles.input}
+          onChangeText={setName}
+          value={name}
+          placeholder="Enter your name"
+        />
+        <Button
+        title='Save'
+        onPress={postandFetch}
+        />
+      </SafeAreaView>
       <StatusBar style="auto" />
     </View>
   );
@@ -19,4 +41,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  input: {
+    height: 40,
+    margin: 12,
+    borderWidth: 1,
+    padding: 10,
+    width: 300
+  }
 });
